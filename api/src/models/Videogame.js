@@ -8,5 +8,21 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+    description:{
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    released:{
+      type: DataTypes.DATEONLY
+    },
+    rating:{
+      type: DataTypes.FLOAT
+    },
+    platforms:{
+      type: DataTypes.ENUM("Accion", "Puzzle")
+    },
+  },{
+    timestamps: false
+  }
+  );
 };
