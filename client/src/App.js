@@ -1,48 +1,24 @@
 import './App.css';
 import {Route} from "react-router-dom"
-import {getAllVideogames} from "./redux/Actions"
-import {connect} from "react-redux"
+import Home from './components/Home/Home.jsx';
+import {Link} from "react-router-dom"
+import DetailVideogame from "./components/DetailVideogame/DetailVideogame.jsx"
 
-function App(props) {
-
-  function HandlerClick(e){
-    props.getAllVideogames()
-  }
-
+function App() {
 
   return (
     <div className="App">
-      <button onClick={HandlerClick}>get Videogames</button>
-      {
-        props.Videogames?.map(videogame =>{
-          return <label>{videogame.name}</label>
-        })
-      }
-
-
-
-
-      {/* <Route path="/" exact>
-        <h1>Henry Videogames</h1>  
+      <Route path="/" exact>
+        <h1>Henry Videogames</h1>
+        <Link to="/home"> Home</Link>
       </Route>
       <Route path="/home">
-        <h2>Home</h2>
-      </Route> */}
+        <Home/>
+      </Route>
+      <Route path="/videogame/:id" component={DetailVideogame}/>
     </div>
   );
 }
 
 
-const mapStateToProps = state =>{
-  return {
-    Videogames: state.Videogames
-  }
-}
-
-const mapDispatchToProps = dispatch =>{
-  return{
-    getAllVideogames: () => dispatch(getAllVideogames())
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default App

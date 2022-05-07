@@ -2,9 +2,9 @@ import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME} from "
 
 
 const initialState = {
-    Videogames: [],
-    Genres: [],
-    DetailVideogame: {}
+    videogames: [],
+    genres: [],
+    detailVideogame: {}
 }
 
 
@@ -12,16 +12,16 @@ const rootReducer = function(state = initialState, action){
 
     switch(action.type){
         case GET_ALL_VIDEOGAMES:
-            return {...state , Videogames: action.payload}
+            return {...state , videogames: action.payload}
 
         case GET_VIDEOGAME: 
-            return {...state, DetailVideogame: action.payload}
+            return {...state, detailVideogame: action.payload}
 
         case SEARCH_VIDEOGAME: 
-            return {...state, Videogames: action.payload}
+            return {...state, videogames: action.payload}
 
         case GET_ALL_GENRES: 
-            return {...state, Genres: action.payload}
+            return {...state, genres: action.payload}
 
         default:
             return state
