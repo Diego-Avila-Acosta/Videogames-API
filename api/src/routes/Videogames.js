@@ -2,6 +2,7 @@ const router = require('express').Router();
 const axios = require("axios");
 const { response } = require('express');
 const {API_KEY} = process.env
+const logic = require("../logic/Genre.js")
 
 router.get("/", async function(req,res) {
     let busqueda = []
@@ -21,7 +22,7 @@ router.get("/", async function(req,res) {
             busqueda.push({
                 name: objeto.name,
                 background_image: objeto.background_image,
-                genres: objeto.genres
+                genres: logic.mapGenre(objeto.genres)
             })
         }
 
@@ -46,7 +47,7 @@ router.get("/", async function(req,res) {
             busqueda.push({
                 name: objeto.name,
                 background_image: objeto.background_image,
-                genres: objeto.genres
+                genres: logic.mapGenre(objeto.genres)
             })
         }
         
