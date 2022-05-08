@@ -8,6 +8,9 @@ router.get("/", async function(req,res) {
     let busqueda = []
     let url = 'https://api.rawg.io/api/games'
     let name = req.query.name
+
+
+    //Refactorizar Completo MAYBE
     if(name){
         
         url += `?search=${name}`.split(" ").join("%20")
@@ -25,9 +28,8 @@ router.get("/", async function(req,res) {
                 genres: logic.mapGenre(objeto.genres)
             })
         }
-
+        
         res.status(200).json(busqueda)
-
     }else{
         url += `?key=11c62a395ad84cb78ed11bb962cbedd7`
 
@@ -41,22 +43,22 @@ router.get("/", async function(req,res) {
                 method: 'get',
                 url
             })
-            respuesta = respuesta.data
-            for (let i = 0; i < respuesta.results.length; i++) {
-            let objeto = respuesta.results[i]
-            busqueda.push({
-                name: objeto.name,
-                background_image: objeto.background_image,
-                genres: logic.mapGenre(objeto.genres)
-            })
-        }
+
+            respuesta = respuesta.data 
+            busqueda.push(...respuesta.results.map(game => {
+                return {
+                    id: game.id,
+                    name: game.name,
+                    background_image: game.background_image,
+                    genres: logic.mapGenre(game.genres)
+                }
+            }))
         
         iter++
         url = respuesta.next
     }while(iter < 5)
     
     res.status(200).send(busqueda)
-    
     }
 })
 
