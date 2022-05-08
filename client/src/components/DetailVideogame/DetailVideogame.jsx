@@ -1,21 +1,32 @@
 import {getVideogame} from "../../redux/Actions.js"
-import {connect} from "react-redux"
+import {useSelector , useDispatch} from "react-redux"
 import { useEffect } from "react"
 
 
 
+
 function DetailVideogame(props){
+    const detailVideogame = useSelector(state => state.detailVideogame)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
-        props.getVideogame(props.match.params.id)
+        dispatch(getVideogame(props.match.params.id))
     },[])
 
     return(
         <>
         {
-            props.detailVideogame ? (
+            detailVideogame ? (
                 <div>
-                    <h1>{props.detailVideogame.name}</h1>
+                    <h1>{detailVideogame.name}</h1>
+                    <img src={detailVideogame.background_image} alt={detailVideogame.name} />
+                    <p>{detailVideogame.description}</p>
+                    <p>{detailVideogame.rating}</p>
+                    <p>{detailVideogame.released}</p>
+                    <ul>
+                        {detailVideogame.genres.map(genre => (<li>{genre.name}</li>))}
+                    </ul>
+                    
                 </div>
             ) : <h1>No se encontró el videojuego</h1>
         }
@@ -23,17 +34,7 @@ function DetailVideogame(props){
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        detailVideogame: state.detailVideogame
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return{
-        getVideogame: id => dispatch(getVideogame(id))
-    }
-}
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(DetailVideogame)
+
+export default DetailVideogame

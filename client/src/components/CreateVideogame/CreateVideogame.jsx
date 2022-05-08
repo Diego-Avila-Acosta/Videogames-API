@@ -2,23 +2,16 @@ import {useEffect, useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {getAllGenres} from "../../redux/Actions"
 
-
 /*
-
-
-
 Ruta de creación de videojuegos: debe contener
 
 1. [] Un formulario controlado con JavaScript con los siguientes campos: Nombre, Descripción, Fecha de lanzamiento y Rating
 2. [] Posibilidad de seleccionar/agregar varios géneros
 3. [] Posibilidad de seleccionar/agregar varias plataformas
 4. [] Botón/Opción para crear un nuevo videojuego
-
-
 */
 
-
-function CreateVideogame(props){
+function CreateVideogame(){
     const [state,setState] = useState({
         name: "",
         description: "",
@@ -27,21 +20,21 @@ function CreateVideogame(props){
         genres: [],
         platforms:[]
     })
-
     const [errors,setErrors] = useState({})
-
     const genres = useSelector(state => state.genres)
     const dispatch = useDispatch()
+    const platforms = ["Xbox 360", "PlayStation 5", "PlayStation 3", "PlayStation 4", "Xbox One", "PC", "Nintendo Switch"]
 
     useEffect(() => {
         dispatch(getAllGenres());
     },[])
 
     function handleInput(e){
+
         let name = e.target.name
         setState( {
             ...state,
-                [name]: name === "genres" ? [...state.genres, e.target.options[e.target.selectedIndex].value] : e.target.value
+                [name]: name === "genres" || name === "platforms" ? [...state[name], e.target.options[e.target.selectedIndex].value] : e.target.value
             })
 
         setErrors(handleErrors({
@@ -53,18 +46,17 @@ function CreateVideogame(props){
     function handleErrors(state){
         let errors = {}
         if(!state.name) errors.name = "Se requiere un nombre"
-
-
         return errors
     }
 
-    function prueba(e){
-        console.log("boton")
+    function handleClickGenre(e){
+        setState(state => {
+            return {...state, genres: state.genres.filter(genre => genre != e.target.value)}
+        })
     }
 
     return (
         <form>
-            {console.log(state)}
             <label>Nombre:</label>
             <input name="name" onChange={handleInput} value={state.name} type="text"></input>
             {errors.name ? <label>{errors.name}</label> : null }
@@ -81,25 +73,44 @@ function CreateVideogame(props){
             <p></p>
 
             <label>Rating:</label>
-            <input name="rating" onChange={handleInput} value={state.rating} type="number"></input>
+            <input type="range" min={0} max={5} name="rating" onChange={handleInput} value={state.rating} ></input>
 
             <p></p>
 
-            <label>Select:</label>
+            <label>Generos:</label>
             <select name="genres" onChange={handleInput}>
             {
-            genres ? genres.map(genre =>(
-                <option value={[genre.id , genre.name]}>{genre.name}</option>
-            )) : null
+            genres?.map((genre, i) =>(
+                <option value={i}>{genre.name}</option>
+            ))
             }
             </select>
 
             <p></p>
 
             <ul>
-                {state.genres?.map(genre => {})}
+                {state.genres?.map(genre => (
+                    <li>
+                        <label>{genres[genre].name}</label>
+                        <button type = "button" value={genre} onClick={handleClickGenre}>x</button>
+                    </li>
+                ))}
             </ul>
-            <button type="button">asd</button>
+
+            <p></p>
+
+            <label>Plataformas</label>
+            <select name="platforms" onChange={handleInput}>
+                    {platforms.map((platform,i) => (<option value={platform} >{platform}</option>))}
+            </select>
+
+            <ul>
+                {state.platforms?.map(platform => (
+                    <li>
+                        <label>{platform}</label>
+                    </li>
+                ))}
+            </ul>
         </form>
     )
 }
