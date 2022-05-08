@@ -50,7 +50,8 @@ router.get("/", async function(req,res) {
                     id: game.id,
                     name: game.name,
                     background_image: game.background_image,
-                    genres: logic.mapGenre(game.genres)
+                    genres: logic.mapGenre(game.genres),
+                    rating: game.rating
                 }
             }))
         

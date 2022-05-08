@@ -1,5 +1,5 @@
-import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES} from "./Actions"
-import {sort} from "../Sort/Sort.js"
+import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES, FILTER_VIDEOGAMES} from "./Actions"
+import Sort from "../Sort/Sort.js"
 
 
 const initialState = {
@@ -25,7 +25,17 @@ const rootReducer = function(state = initialState, action){
             return {...state, genres: action.payload}
         
         case SORT_VIDEOGAMES:
-            return {...state, videogames: [...sort(state.videogames, action.payload)]}
+            let sort = new Sort()
+            
+            return {...state, videogames: [...sort.sort(state.videogames, sort[action.payload.value] , action.payload.name)]}
+
+        case FILTER_VIDEOGAMES:
+            return {...state, videogames: [...state.videogames.filter(videogame => {
+                for (let i = 0; i < videogame.genres.length; i++) {
+                    if(videogame.genres[i].id === Number(action.payload)) return true
+                }
+                return false
+            })]}
         default:
             return state
     }
