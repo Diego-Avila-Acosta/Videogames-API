@@ -1,47 +1,28 @@
-import {getAllVideogames} from "../../redux/Actions"
-import {connect} from "react-redux"
+import {getAllVideogames, sortVideogames} from "../../redux/Actions"
+import {useDispatch} from "react-redux"
 import { useEffect } from "react"
+import {descendent,ascendent} from "../../Sort/Sort"
+import Cards from "../Cards/Cards"
 
 
-function Home(props){
+function Home(){
+
+    let dispatch = useDispatch()
 
     useEffect(()=>{
-        props.getAllVideogames()
+        dispatch(getAllVideogames())
     },[])
 
     return(
-    <>
-        {
-        props.videogames?.map(videogame => (
-            <div>
-                <h1>{videogame.name}</h1>
-                <ul>
-                    {
-                    videogame.genres.map(genre => (
-                        <li>{genre.name}</li>
-                    ))
-                    }
-                </ul>
-                <img src={videogame.background_image} alt={videogame.name}/>
-            </div>
-        ))
-        }
+    <>  
+        <button onClick={() => dispatch(sortVideogames(ascendent))}>Asc</button>
+        <button onClick={() => dispatch(sortVideogames(descendent))}>Desc</button>
+        <Cards/>
     </>
     )
 }
 
 
-const mapStateToProps = state =>{
-    return {
-      videogames: state.videogames
-    }
-  }
-  
-  const mapDispatchToProps = dispatch =>{
-    return{
-      getAllVideogames: () => dispatch(getAllVideogames())
-    }
-  }
-  
-  export default connect(mapStateToProps,mapDispatchToProps)(Home)
+
+  export default Home
   

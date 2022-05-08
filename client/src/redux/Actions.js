@@ -2,6 +2,7 @@ export const GET_ALL_VIDEOGAMES = "GET_ALL_VIDEOGAMES"
 export const GET_VIDEOGAME = "GET_VIDEOGAME"
 export const SEARCH_VIDEOGAME = "SEARCH_VIDEOGAME"
 export const GET_ALL_GENRES = "GET_ALL_GENRES"
+export const SORT_VIDEOGAMES = "SORT_VIDEOGAMES" 
 // const POST_VIDEOGAME = "POST_VIDEOGAME"
 
 
@@ -55,6 +56,14 @@ export const getAllGenres = () =>{
                 payload: data
             })
         })
+    }
+}
+
+
+export const sortVideogames = (callback) =>{
+    return {
+        type: SORT_VIDEOGAMES,
+        payload: callback
     }
 }
 

@@ -3,6 +3,7 @@ import {Route} from "react-router-dom"
 import Home from './components/Home/Home.jsx';
 import {Link} from "react-router-dom"
 import DetailVideogame from "./components/DetailVideogame/DetailVideogame.jsx"
+import CreateVideogame from './components/CreateVideogame/CreateVideogame';
 
 function App() {
 
@@ -16,6 +17,8 @@ function App() {
         <Home/>
       </Route>
       <Route path="/videogame/:id" component={DetailVideogame}/>
+
+      <Route path="/createVideogame" component={CreateVideogame}/>
     </div>
   );
 }
