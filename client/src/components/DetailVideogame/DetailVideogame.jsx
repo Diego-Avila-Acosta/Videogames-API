@@ -15,7 +15,7 @@ function DetailVideogame(props){
 
     return(
         <>
-        {
+        {   
             detailVideogame ? (
                 <div>
                     <h1>{detailVideogame.name}</h1>
@@ -24,7 +24,7 @@ function DetailVideogame(props){
                     <p>{detailVideogame.rating}</p>
                     <p>{detailVideogame.released}</p>
                     <ul>
-                        {detailVideogame.genres.map(genre => (<li>{genre.name}</li>))}
+                        {detailVideogame.genres?.map(genre => (<li>{genre.name}</li>))}
                     </ul>
                     
                 </div>
