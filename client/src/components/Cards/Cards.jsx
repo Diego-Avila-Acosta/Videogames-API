@@ -21,18 +21,18 @@ function Cards(){
 
     function handleClick(e){
         let i = Number(e.target.value)
-        handle(i)
+        changePage(i)
         setCurrentPage(i)
     }
 
-    function handle(currentPage){
+    function changePage(currentPage){
         aux = [...videogames]
-        setItems(aux.splice((currentPage)*items_Per_Page,items_Per_Page))
+        setItems(aux.splice((currentPage)*items_Per_Page, items_Per_Page))
     }
 
     useEffect(()=>{
         setCurrentPage(0)
-        handle(0)
+        changePage(0)
     },[videogames])
 
     function setterButtons(i){
@@ -42,6 +42,7 @@ function Cards(){
     return(
         <>
             <nav>
+
                 <button disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
                 {setButtons(videogames.length, setterButtons)}
                 <button disabled={(currentPage+1)*items_Per_Page >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>

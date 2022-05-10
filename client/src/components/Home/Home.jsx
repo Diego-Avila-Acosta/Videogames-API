@@ -33,10 +33,11 @@ function Home(){
 
     return(
     <>  
-
         <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
         <button onClick={handleSearch}>Search</button>
+
         <p></p>
+
         <label>Generos:</label>
         <select name="genres" onChange={handleFilter}>
             {
@@ -45,14 +46,25 @@ function Home(){
             ))
             }
         </select>
+
         <p></p>
-        <label >Rating:</label>
+
+        <label>Rating:</label>
+
         <button name="rating" value= "ascendent" onClick={handleSort}>Asc</button>
         <button name="rating" value= "descendent" onClick={handleSort}>Desc</button>
+
         <p></p>
-        <label >A-Z:</label>
+        
+        <label>A-Z:</label>
         <button name="name" value= "ascendent" onClick={handleSort}>Asc</button>
         <button name="name" value= "descendent" onClick={handleSort}>Desc</button>
+
+        <p></p>
+
+        <label>DB or API:</label>
+        <button name="id" value= "uuid" onClick={handleFilter}>DB</button>
+        <button name="id" value= "id" onClick={handleFilter}>API</button>
         <Cards/>
     </>
     )

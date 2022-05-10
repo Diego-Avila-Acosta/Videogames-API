@@ -1,5 +1,6 @@
 import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES, FILTER_VIDEOGAMES, POST_VIDEOGAME} from "./Actions"
-import Sort from "../Sort/Sort.js"
+import Sort from "../Utils/Sort.js"
+import Filter from "../Utils/Filter.js"
 
 
 const initialState = {
@@ -36,14 +37,19 @@ const rootReducer = function(state = initialState, action){
             return {...state, videogames: [...sort.sort(state.videogames, sort[action.payload.value] , action.payload.name)]}
 
         case FILTER_VIDEOGAMES:
+            let filter = new Filter()
+            let videogames
+
             if(aux.length) state.videogames  = aux
-            aux = state.videogames
-            return {...state, videogames: [...state.videogames.filter(videogame => {
-                for (let i = 0; i < videogame.genres.length; i++) {
-                    if(videogame.genres[i].id === Number(action.payload)) return true
-                }
-                return false
-            })]}
+            else aux = state.videogames
+
+            if(isNaN(Number(action.payload))){
+                videogames = filter.idFilter(state.videogames, action.payload)
+            }else{
+                videogames = filter.genreFilter(state.videogames, Number(action.payload))
+            }
+
+            return {...state, videogames}
         case POST_VIDEOGAME:
             return {...state, videogames: [...state.videogames, action.payload]}
         default:

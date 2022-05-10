@@ -1,6 +1,6 @@
 
 
-function Sort(){
+export default function Sort(){
 
     this.ascendent = function (target, element, prop){
         if(target[prop] > element[prop]){
@@ -37,6 +37,3 @@ function Sort(){
         return array
     }
 }
-
-export default Sort
-
