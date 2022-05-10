@@ -1,18 +1,22 @@
-import {getAllGenres, getAllVideogames, sortVideogames, filterVideogames} from "../../redux/Actions"
+import {getAllGenres, getAllVideogames, searchVideogame ,sortVideogames, filterVideogames} from "../../redux/Actions"
 import {useDispatch, useSelector} from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState} from "react"
 import Cards from "../Cards/Cards"
 
 
 function Home(){
     let genres = useSelector(state => state.genres)
     let dispatch = useDispatch()
+    let [search,setSearch] = useState("")
 
     useEffect(()=>{
         dispatch(getAllVideogames())
         dispatch(getAllGenres())
     },[])
 
+    function handleSearch(){
+        dispatch(searchVideogame(search))
+    }
 
     function handleSort(e){
         dispatch(sortVideogames({
@@ -29,6 +33,10 @@ function Home(){
 
     return(
     <>  
+
+        <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
+        <button onClick={handleSearch}>Search</button>
+        <p></p>
         <label>Generos:</label>
         <select name="genres" onChange={handleFilter}>
             {

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import Card from "../Card/Card"
 
+const items_Per_Page = 15
+
 function setButtons(length, cb){
     let array = []
-    for (let i = 0; i < Math.ceil(length/15); i++) {
+    for (let i = 0; i < Math.ceil(length/items_Per_Page); i++) {
         array.push(cb(i))
     }
     return array
@@ -12,7 +14,6 @@ function setButtons(length, cb){
 
 
 function Cards(){
-    const items_Per_Page = 15
     const videogames = useSelector(state => state.videogames)
     const [items,setItems] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
@@ -26,11 +27,12 @@ function Cards(){
 
     function handle(currentPage){
         aux = [...videogames]
-        setItems(aux.splice((currentPage)*15,items_Per_Page))
+        setItems(aux.splice((currentPage)*items_Per_Page,items_Per_Page))
     }
 
     useEffect(()=>{
-        handle(currentPage)
+        setCurrentPage(0)
+        handle(0)
     },[videogames])
 
     function setterButtons(i){
@@ -42,13 +44,14 @@ function Cards(){
             <nav>
                 <button disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
                 {setButtons(videogames.length, setterButtons)}
-                <button disabled={(currentPage+1)*15 >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
+                <button disabled={(currentPage+1)*items_Per_Page >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
             </nav>
 
             
             {items?.map(game => (
                 
                 <Card 
+                key = {game.id}
                 id = {game.id}
                 name= {game.name} 
                 background_image= {game.background_image}

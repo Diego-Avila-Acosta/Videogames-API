@@ -34,6 +34,10 @@ export const getVideogame = (id) =>{
 }
 
 export const searchVideogame = (name) =>{
+    if(!name) return {
+        type: SEARCH_VIDEOGAME,
+        payload: name
+    }
     return async function(dispatch){
         return fetch(`http://localhost:3001/videogames?name=${name}`)
         .then(response => response.json())

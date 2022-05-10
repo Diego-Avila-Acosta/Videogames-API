@@ -24,6 +24,9 @@ module.exports = (sequelize) => {
     rating:{
       type: DataTypes.FLOAT
     },
+    background_image:{
+      type: DataTypes.STRING
+    },
     platforms:{
       type: DataTypes.ENUM("Accion", "Puzzle")
     },
