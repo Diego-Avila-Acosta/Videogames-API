@@ -1,17 +1,17 @@
 const router = require('express').Router();
 const axios = require("axios");
 const {API_KEY} = process.env
-const logic = require("../logic/Genre.js")
+const {Genre} = require("../db")
+
 
 
 router.get("/", (req, res) => {
-    axios({
-        method: "get",
-        url: `https://api.rawg.io/api/genres?key=${API_KEY}`
-      }).then(response => response.data)
+    Genre.findAll()
       .then(data => {
-          let array = logic.mapGenre(data.results)
-          res.status(200).send(array)
+          res.status(200).send(data)
+      })
+      .catch(error => {
+          res.status(400).send(error)
       })
 })
 
