@@ -8,7 +8,7 @@ function Card(props){
             <Link to={`/videogame/${props.id}`}><h1>{props.name}</h1></Link>
             <ul>
                 {
-                props.genres.map(genre => (
+                props.genres?.map(genre => (
                     <li>{genre.name}</li>
                     ))
                 }

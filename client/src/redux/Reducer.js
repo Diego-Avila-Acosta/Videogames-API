@@ -1,4 +1,4 @@
-import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES, FILTER_VIDEOGAMES} from "./Actions"
+import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES, FILTER_VIDEOGAMES, POST_VIDEOGAME} from "./Actions"
 import Sort from "../Sort/Sort.js"
 
 
@@ -44,6 +44,8 @@ const rootReducer = function(state = initialState, action){
                 }
                 return false
             })]}
+        case POST_VIDEOGAME:
+            return {...state, videogames: [...state.videogames, action.payload]}
         default:
             return state
     }

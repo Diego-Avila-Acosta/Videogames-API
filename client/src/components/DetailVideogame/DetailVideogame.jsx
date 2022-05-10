@@ -26,6 +26,8 @@ function DetailVideogame(props){
                     <ul>
                         {detailVideogame.genres?.map(genre => (<li>{genre.name}</li>))}
                     </ul>
+                    {console.log(detailVideogame.platforms)}
+                    <p>{detailVideogame.platforms?.map(platform => platform["platform"].name).join("/")}</p>
                     
                 </div>
             ) : <h1>No se encontró el videojuego</h1>

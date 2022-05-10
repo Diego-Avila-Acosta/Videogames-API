@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {getAllGenres} from "../../redux/Actions"
+import {getAllGenres, postVideogame} from "../../redux/Actions"
 
 function validURL(str) {
     var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
@@ -9,7 +9,7 @@ function validURL(str) {
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
       '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
       '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return !!pattern.test(str);
+    return pattern.test(str);
   }
 
 function CreateVideogame(){
@@ -22,6 +22,7 @@ function CreateVideogame(){
         genres: [],
         platforms:[]
     })
+    
     const [errors,setErrors] = useState({})
     const genres = useSelector(state => state.genres)
     const dispatch = useDispatch()
@@ -68,10 +69,24 @@ function CreateVideogame(){
 
     function handleSubmit(e){
         e.preventDefault()
+        let generos = []
+        state.genres.forEach(i => {
+            generos.push(genres[i].id)
+        })
+        dispatch(postVideogame({
+            name: state.name,
+            description: state.description,
+            background_image: state.background_image,
+            rating: Number(state.rating),
+            released: state.released,
+            genres: generos,
+            platforms: state.platforms.join("/")
+        }))
     }
 
     return (
         <form onSubmit={handleSubmit}>
+            {console.log(state.genres)}
             <label>Nombre:</label>
             <input name="name" onChange={handleInput} value={state.name} type="text"></input>
             {errors.name ? <label>{errors.name}</label> : null }
@@ -93,7 +108,7 @@ function CreateVideogame(){
             <p></p>
 
             <label>Generos:</label>
-            <select name="genres" defaultValue={"Seleccionar genero"} onChange={handleInput}>
+            <select name="genres" onChange={handleInput}>
             <option value="" selected disabled hidden>Selecionar genero</option>
             {
             genres?.map((genre, i) =>(
@@ -118,7 +133,7 @@ function CreateVideogame(){
             <label>Plataformas</label>
             <select name="platforms" onChange={handleInput}>
             <option value="" selected disabled hidden>Selecionar plataforma</option>
-                    {platforms.map((platform,i) => (<option value={platform} >{platform}</option>))}
+                    {platforms.map((platform) => (<option value={platform} >{platform}</option>))}
             </select>
             {errors.platforms ? <label>{errors.platforms}</label> : null }
             <p></p>
@@ -134,9 +149,9 @@ function CreateVideogame(){
             <p></p>
 
             <label>Imagen (URL):</label>
-            <input type="text" name="background_image" value={state.background_image}/>
+            <input type="text" name="background_image" onChange={handleInput} value={state.background_image}/>
             <div></div>
-            <input type="submit">submit</input>
+            <button type="submit">submit</button>
         </form>
     )
 }
