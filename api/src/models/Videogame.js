@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     platforms:{
-      type: DataTypes.ENUM("Accion", "Puzzle")
+      type: DataTypes.STRING
     },
   },{
     timestamps: false

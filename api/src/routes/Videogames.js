@@ -88,7 +88,8 @@ router.get("/", async function(req,res) {
 
     Videogame.findAll(options)
     .then(data => {
-        busqueda.concat(data)
+        
+        busqueda = busqueda.concat(data)
         res.status(200).send(busqueda)
     })
     .catch(error => {
