@@ -35,47 +35,53 @@ function Home(){
     return(
     <div className="Home">
         <div>
+            <div>
+                <label>Generos:</label>
+                <select name="genres" onChange={handleFilter}>
+                    <option value="all">All</option>{
+                            genres?.map((genre) =>(
+                                <option value={genre.id}>{genre.name}</option>
+                            ))
+                    }
+                </select>
+            </div>
 
+            <div>
+                <label>DB or API:</label>
+                <select onChange={handleFilter}>
+                    <option value= "all">All</option>
+                    <option value= "uuid">Base de Datos</option>
+                    <option value= "id">API</option>
+                </select>
+            </div>
 
-        <p></p>
-
-        <label>Generos:</label>
-        <select name="genres" onChange={handleFilter}>
-            {
-                genres?.map((genre) =>(
-                    <option value={genre.id}>{genre.name}</option>
-                    ))
-                }
-        </select>
-
-        <p></p>
-
-        <label>Rating:</label>
-
-        <button name="rating" value= "ascendent" onClick={handleSort}>Asc</button>
-        <button name="rating" value= "descendent" onClick={handleSort}>Desc</button>
-
-        <p></p>
         
-        <label>A-Z:</label>
-        <button name="name" value= "ascendent" onClick={handleSort}>Asc</button>
-        <button name="name" value= "descendent" onClick={handleSort}>Desc</button>
+            <div>
+                <label>Rating:</label>
+                <select name= "rating" onChange={handleSort}>
+                    <option value= "none">Ninguno</option>
+                    <option value= "ascendent">Menor</option>
+                    <option value= "descendent">Mayor</option>
+                </select>
+            </div>
 
-        <p></p>
-
-        <label>DB or API:</label>
-        <button name="id" value= "uuid" onClick={handleFilter}>DB</button>
-        <button name="id" value= "id" onClick={handleFilter}>API</button>
+        
+            <div>
+                <label>A-Z:</label>
+                <select name="name" onChange={handleSort}>
+                    <option value= "none">Ninguno</option>
+                    <option value= "ascendent">Ascendente</option>
+                    <option value= "descendent">Descendente</option>
+                </select>
+            </div>
         </div>
 
         <div className="MainContainer">
-        <div className="Search">
-        <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
-        <button onClick={handleSearch}>Search</button>
-        </div>
-
-        <Cards/>
-        
+            <div className="Search">
+                <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
+                <button onClick={handleSearch}>Search</button>
+            </div>
+            <Cards/>
         </div>
     </div>
     )

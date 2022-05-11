@@ -10,6 +10,7 @@ const initialState = {
 }
 
 let aux = [];
+let auxSort = [];
 
 
 const rootReducer = function(state = initialState, action){
@@ -33,8 +34,13 @@ const rootReducer = function(state = initialState, action){
         
         case SORT_VIDEOGAMES:
             let sort = new Sort()
-            if(aux.length) state.videogames  = aux
-            return {...state, videogames: [...sort.sort(state.videogames, sort[action.payload.value] , action.payload.name)]}
+            if(action.payload.value === "none"){
+                return {...state, videogames: [...auxSort]}
+            }
+            if(!auxSort.length)auxSort = [...state.videogames]
+
+
+            return {...state, videogames: [...sort.sort(state.videogames, sort[action.payload.value], action.payload.name)]}
 
         case FILTER_VIDEOGAMES:
             let filter = new Filter()
@@ -45,6 +51,9 @@ const rootReducer = function(state = initialState, action){
 
             if(isNaN(Number(action.payload))){
                 videogames = filter.idFilter(state.videogames, action.payload)
+            }else if(action.payload === "all"){
+                videogames =  aux
+                aux = null
             }else{
                 videogames = filter.genreFilter(state.videogames, Number(action.payload))
             }
