@@ -1,3 +1,7 @@
 .NavBar{
   display: none;
 }
+
+Body{
+  margin: 0px;
+}

@@ -137,6 +137,8 @@ function CreateVideogame(){
             </select>
             {errors.platforms ? <label>{errors.platforms}</label> : null }
             <p></p>
+
+
             <ul>
                 {state.platforms?.map(platform => (
                     <li>
@@ -145,6 +147,8 @@ function CreateVideogame(){
                     </li>
                 ))}
             </ul>
+
+            
 
             <p></p>
 

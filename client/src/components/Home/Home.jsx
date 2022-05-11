@@ -68,7 +68,7 @@ function Home(){
         <button name="id" value= "id" onClick={handleFilter}>API</button>
         </div>
 
-        <div>
+        <div className="MainContainer">
         <div className="Search">
         <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
         <button onClick={handleSearch}>Search</button>

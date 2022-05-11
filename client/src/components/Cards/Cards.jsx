@@ -37,20 +37,20 @@ function Cards(){
     },[videogames])
 
     function setterButtons(i){
-        return (<button disabled={currentPage === i} value={i} onClick={handleClick}>{i+1}</button>)
+        return (<button className="ButtonnPaginado" disabled={currentPage === i} value={i} onClick={handleClick}>{i+1}</button>)
     }
 
     return(
         <div className="Cards">
-            <nav>
+            <nav className="Paginado">
 
-                <button disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
+                <button className="ButtonnPaginado" disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
                 {setButtons(videogames.length, setterButtons)}
-                <button disabled={(currentPage+1)*items_Per_Page >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
+                <button className="ButtonnPaginado" disabled={(currentPage+1)*items_Per_Page >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
             </nav>
 
             
-            <div>
+            <div className="Items">
             {items?.map(game => (
                 <Card 
                 key = {game.id}

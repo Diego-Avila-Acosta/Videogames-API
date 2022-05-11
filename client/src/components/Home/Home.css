@@ -2,7 +2,13 @@
     display: flex;
 }
 
+.MainContainer{
+    width: 100%;
+}
+
 .Search{
     display: flex;
     justify-content: center;
+    margin: 10px;
 }
+
