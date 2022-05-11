@@ -2,6 +2,7 @@ import {getAllGenres, getAllVideogames, searchVideogame ,sortVideogames, filterV
 import {useDispatch, useSelector} from "react-redux"
 import { useEffect, useState} from "react"
 import Cards from "../Cards/Cards"
+import "./Home.css"
 
 
 function Home(){
@@ -32,19 +33,19 @@ function Home(){
 
 
     return(
-    <>  
-        <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
-        <button onClick={handleSearch}>Search</button>
+    <div className="Home">
+        <div>
+
 
         <p></p>
 
         <label>Generos:</label>
         <select name="genres" onChange={handleFilter}>
             {
-            genres?.map((genre) =>(
-                <option value={genre.id}>{genre.name}</option>
-            ))
-            }
+                genres?.map((genre) =>(
+                    <option value={genre.id}>{genre.name}</option>
+                    ))
+                }
         </select>
 
         <p></p>
@@ -65,8 +66,18 @@ function Home(){
         <label>DB or API:</label>
         <button name="id" value= "uuid" onClick={handleFilter}>DB</button>
         <button name="id" value= "id" onClick={handleFilter}>API</button>
+        </div>
+
+        <div>
+        <div className="Search">
+        <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
+        <button onClick={handleSearch}>Search</button>
+        </div>
+
         <Cards/>
-    </>
+        
+        </div>
+    </div>
     )
 }
 

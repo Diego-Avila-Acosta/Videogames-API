@@ -1,0 +1,8 @@
+.Home{
+    display: flex;
+}
+
+.Search{
+    display: flex;
+    justify-content: center;
+}

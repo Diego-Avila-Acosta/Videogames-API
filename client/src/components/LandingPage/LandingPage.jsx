@@ -1,15 +1,14 @@
 import {Link} from "react-router-dom"
-
+import "./LandingPage.css"
 
 
 function LandingPage(){
 
 
     return (
-        <>
-        <h1>Henry Videogames</h1>
+        <div className="LandingPage">
         <Link to="/home"> Home</Link>
-        </>
+        </div>
     )
 }
 
