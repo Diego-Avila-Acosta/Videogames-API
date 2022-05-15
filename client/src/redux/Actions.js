@@ -5,6 +5,8 @@ export const GET_ALL_GENRES = "GET_ALL_GENRES"
 export const SORT_VIDEOGAMES = "SORT_VIDEOGAMES"
 export const FILTER_VIDEOGAMES = "FILTER_VIDEOGAMES"
 export const POST_VIDEOGAME = "POST_VIDEOGAME"
+export const SET_ERROR = "SET_ERROR"
+export const CLEAN_ERROR = "CLEAN_ERROR"
 
 
 export const getAllVideogames = () =>{
@@ -25,9 +27,15 @@ export const getVideogame = (id) =>{
         return fetch(`http://localhost:3001/videogame/${id}`)
         .then(response => response.json())
         .then(data => {
+            if(data.error)throw new Error(data.error)
             dispatch({
                 type:GET_VIDEOGAME,
                 payload: data
+            })
+        }).catch(error =>{
+            dispatch({
+                type:SET_ERROR,
+                payload: error.message
             })
         })
     }
@@ -91,7 +99,6 @@ export const postVideogame = (game) =>{
           })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             dispatch({
                 type:POST_VIDEOGAME,
                 payload: data
@@ -99,5 +106,12 @@ export const postVideogame = (game) =>{
         }).catch(error => {
             console.log(error)
         })
+    }
+}
+
+
+export const cleanError = () =>{
+    return {
+        type: CLEAN_ERROR
     }
 }

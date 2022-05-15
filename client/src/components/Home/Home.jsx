@@ -1,19 +1,33 @@
-import {getAllGenres, getAllVideogames, searchVideogame ,sortVideogames, filterVideogames} from "../../redux/Actions"
+import {getAllGenres, getAllVideogames, searchVideogame ,sortVideogames, filterVideogames, cleanError} from "../../redux/Actions"
 import {useDispatch, useSelector} from "react-redux"
 import { useEffect, useState} from "react"
-import Cards from "../Cards/Cards"
+import Cards from "../Cards/Cards.jsx"
+import Loading from "../Loading/Loading.jsx"
+import Error from "../Error/Error.jsx"
 import "./Home.css"
 
 
 function Home(){
     let genres = useSelector(state => state.genres)
+    let videogames = useSelector(state => state.videogames)
+    let error = useSelector(state => state.error)
     let dispatch = useDispatch()
     let [search,setSearch] = useState("")
+    let [loading, setLoading] = useState(true)
 
     useEffect(()=>{
         dispatch(getAllVideogames())
         dispatch(getAllGenres())
+
+        return () => {
+            dispatch(cleanError())
+        }
     },[])
+
+    useEffect(()=>{
+        if(videogames) setLoading(false)
+    },[videogames])
+
 
     function handleSearch(){
         dispatch(searchVideogame(search))
@@ -81,13 +95,14 @@ function Home(){
                 <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
                 <button onClick={handleSearch}>Search</button>
             </div>
-            <Cards/>
+            
+            {loading && <Loading/>}
+            {videogames && <Cards videogames={videogames}/>}
+            {error && <Error msg={error}/>}
         </div>
     </div>
     )
 }
-
-
 
   export default Home
   

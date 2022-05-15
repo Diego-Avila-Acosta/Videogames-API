@@ -5,7 +5,7 @@ import DetailVideogame from "./components/DetailVideogame/DetailVideogame.jsx"
 import CreateVideogame from './components/CreateVideogame/CreateVideogame.jsx';
 import LandingPage from "./components/LandingPage/LandingPage.jsx"
 import NavBar from "./components/NavBar/NavBar.jsx"
-import Error404 from './components/Error404/Error404.jsx';
+import Error from './components/Error/Error.jsx';
 
 function App() { 
   
@@ -20,7 +20,7 @@ function App() {
         <Route path="/home" component={Home}/>
         <Route path="/videogame/:id" component={DetailVideogame}/>
         <Route path="/createVideogame" component={CreateVideogame}/>
-        <Route path="*" component={Error404}/>
+        <Route path="*" render={() => (<Error msg={"404: Page not Found"}/>)}/>
       </Switch>
     </div>
   );

@@ -1,12 +1,13 @@
-import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES, FILTER_VIDEOGAMES, POST_VIDEOGAME} from "./Actions"
+import {GET_ALL_GENRES,GET_ALL_VIDEOGAMES,GET_VIDEOGAME,SEARCH_VIDEOGAME, SORT_VIDEOGAMES, FILTER_VIDEOGAMES, POST_VIDEOGAME, SET_ERROR, CLEAN_ERROR} from "./Actions"
 import Sort from "../Utils/Sort.js"
 import Filter from "../Utils/Filter.js"
 
 
 const initialState = {
-    videogames: [],
+    videogames: null,
     genres: [],
-    detailVideogame: {}
+    detailVideogame: null,
+    error: null
 }
 
 let aux = [];
@@ -45,6 +46,7 @@ const rootReducer = function(state = initialState, action){
         case FILTER_VIDEOGAMES:
             let filter = new Filter()
             let videogames
+            let error = null
 
             if(aux.length) state.videogames  = aux
             else aux = state.videogames
@@ -58,9 +60,15 @@ const rootReducer = function(state = initialState, action){
                 videogames = filter.genreFilter(state.videogames, Number(action.payload))
             }
 
-            return {...state, videogames}
+            if(!videogames.length) error = "404: Games Not Found"
+
+            return {...state, videogames, error}
         case POST_VIDEOGAME:
             return {...state, videogames: [...state.videogames, action.payload]}
+        case SET_ERROR:
+            return {...state, error: action.payload}
+        case CLEAN_ERROR:
+            return {...state, error: null}
         default:
             return state
     }

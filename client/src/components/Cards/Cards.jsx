@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import Card from "../Card/Card"
 import "./Cards.css"
 
-const items_Per_Page = 15
+const ITEMS_PER_PAGE = 15
 
 function setButtons(length, cb){
     let array = []
-    length = Math.ceil(length/items_Per_Page)
+    length = Math.ceil(length/ITEMS_PER_PAGE)
     for (let i = 0; i < length; i++) {
         array.push(cb(i))
     }
@@ -15,8 +14,7 @@ function setButtons(length, cb){
 }
 
 
-function Cards(){
-    const videogames = useSelector(state => state.videogames)
+function Cards({videogames}){
     const [items,setItems] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
 
@@ -28,7 +26,7 @@ function Cards(){
 
     function changePage(currentPage){
         let aux = [...videogames]
-        setItems(aux.splice((currentPage)*items_Per_Page, items_Per_Page))
+        setItems(aux.splice((currentPage)*ITEMS_PER_PAGE, ITEMS_PER_PAGE))
     }
 
     useEffect(()=>{
@@ -37,19 +35,19 @@ function Cards(){
     },[videogames])
 
     function setterButtons(i){
-        return (<button className="ButtonnPaginado" disabled={currentPage === i} value={i} onClick={handleClick}>{i+1}</button>)
+        return (<button className="ButtonPaginado" disabled={currentPage === i} value={i} onClick={handleClick}>{i+1}</button>)
     }
 
     return(
         <div className="Cards">
             <nav className="Paginado">
 
-                <button className="ButtonnPaginado" disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
+                <button className="ButtonPaginado" disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
                 {setButtons(videogames.length, setterButtons)}
-                <button className="ButtonnPaginado" disabled={(currentPage+1)*items_Per_Page >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
+                <button className="ButtonPaginado" disabled={(currentPage+1)*ITEMS_PER_PAGE >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
             </nav>
 
-            
+            {console.log(items)}            
             <div className="Items">
             {items?.map(game => (
                 <Card 
