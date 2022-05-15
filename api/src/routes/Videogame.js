@@ -19,7 +19,7 @@ router.get("/:id", async (req,res) => {
             where:{
                 id: id
             },
-            includes:{
+            include:{
                 model: Genre,
                 attributes: ["id", "name"],
                 through:{
@@ -28,9 +28,10 @@ router.get("/:id", async (req,res) => {
             }
         })
         .then(videogame => {
-            res.status(200).send(videogame)
+            if(!videogame) res.status(404).send({error: "404: Game Not Found"})
+            else res.status(200).send(videogame)
         }).catch(error => {
-            res.status(400).send(error)
+            res.status(400).json(error)
         })
     }else{
         axios.get(url)
@@ -40,7 +41,7 @@ router.get("/:id", async (req,res) => {
                 name: data.name,
                 background_image: data.background_image,
                 genres: logic.mapGenre(data.genres),
-                description: data.description,
+                description: data.description_raw,
                 released: data.released,
                 rating: data.rating,
                 platforms: data.platforms
@@ -48,7 +49,7 @@ router.get("/:id", async (req,res) => {
             res.status(200).send(data)
         })
         .catch(error => {
-            res.status(404).send(error)
+            res.status(404).send({error: "404: Game Not Found"})
         })
     }
 })
