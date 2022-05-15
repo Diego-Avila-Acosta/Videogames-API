@@ -1,0 +1,24 @@
+.Background_Image{
+    width: 100%;
+    height: 100%;
+}
+
+.TitleContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.InfoContainer{
+    display: flex;
+}
+
+.ImgDescContainer{
+    width: 50%;
+}
+
+.TextContainer{
+    display: grid;
+    width: 50%;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 150px 150px;
+}
