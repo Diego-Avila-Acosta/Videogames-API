@@ -41,24 +41,21 @@ function Cards({videogames}){
     return(
         <div className="Cards">
             <nav className="Paginado">
-
                 <button className="ButtonPaginado" disabled={currentPage == 0} value={currentPage-1} onClick={handleClick}>Prev</button>
                 {setButtons(videogames.length, setterButtons)}
                 <button className="ButtonPaginado" disabled={(currentPage+1)*ITEMS_PER_PAGE >= videogames.length} value={currentPage+1} onClick={handleClick}>Next</button>
-            </nav>
-
-            {console.log(items)}            
+            </nav>        
             <div className="Items">
-            {items?.map(game => (
-                <Card 
-                key = {game.id}
-                id = {game.id}
-                name= {game.name} 
-                background_image= {game.background_image}
-                genres = {game.genres} />
-                ))
-                
-            }
+                {items?.map(game => (
+                    <Card 
+                    key = {game.id}
+                    id = {game.id}
+                    name= {game.name} 
+                    background_image= {game.background_image}
+                    genres = {game.genres} />
+                    ))
+                    
+                }
             </div>
         </div>
     )

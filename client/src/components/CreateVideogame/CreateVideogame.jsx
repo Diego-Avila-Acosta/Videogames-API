@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react"
+import { Redirect } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import {getAllGenres, postVideogame} from "../../redux/Actions"
 import "./CreateVideogame.css"
@@ -23,7 +24,7 @@ function CreateVideogame(){
         genres: [],
         platforms:[]
     })
-    
+    const [creado, setCreado] = useState(false)
     const [errors,setErrors] = useState({})
     const genres = useSelector(state => state.genres)
     const dispatch = useDispatch()
@@ -84,6 +85,8 @@ function CreateVideogame(){
             genres: generos,
             platforms: state.platforms.join("/")
         }))
+        alert("Se creó el videojuego!")
+        setCreado(true)
     }
 
     return (
@@ -93,19 +96,19 @@ function CreateVideogame(){
                 <div className="InputContainer">
                     <label>Nombre:</label>
                     <input className="InputForm" name="name" onChange={handleInput} value={state.name} type="text"></input>
-                    {errors.name ? <label>{errors.name}</label> : null }
+                    {errors.name ? <label className="LabelError">{errors.name}</label> : null }
                 </div>
             
                 <div className="InputContainer">
                     <label>Descripción:</label>
-                    <textarea className="InputForm" name="description" onChange={handleInput} value={state.description}></textarea>
-                    {errors.description ? <label>{errors.description}</label> : null }
+                    <textarea className="TextAreaForm" name="description" onChange={handleInput} value={state.description}></textarea>
+                    {errors.description ? <label className="LabelError">{errors.description}</label> : null }
                 </div>
 
                 <div className="InputContainer">
                     <label>Fecha de lanzamiento:</label>
                     <input className="InputForm" name="released" type="date" onChange={handleInput} value={state.released}></input>
-                    {errors.released ? <label>{errors.released}</label> : null}
+                    {errors.released ? <label className="LabelError">{errors.released}</label> : null}
                 </div>
 
                 <div className="InputContainer">
@@ -113,7 +116,6 @@ function CreateVideogame(){
                     <input  className="InputForm" type="range" 
                             min={0} max={5} name="rating" onChange={handleInput} value={state.rating} ></input>
                     <label>{state.rating}</label>
-                    {errors.rating ? <label>{errors.rating}</label> : null}
                 </div>
 
                 <div className="InputContainer">
@@ -126,15 +128,15 @@ function CreateVideogame(){
                                 ))
                             }
                     </select>
-                    {errors.genres ? <label>{errors.genres}</label> : null }
+                    {errors.genres ? <label className="LabelError">{errors.genres}</label> : null }
                 </div>
 
                 <div className="InputContainer">
                     <ul>
                         {state.genres?.map(genre => (
-                            <li>
-                                <label>{genres[genre].name}</label>
-                                <button name="genres" type ="button" value={genre} onClick={handleClickSelect}>x</button>
+                            <li className="List">
+                                <label className="LabelList">{genres[genre].name}</label>
+                                <button className="Button" name="genres" type ="button" value={genre} onClick={handleClickSelect}>x</button>
                             </li>
                         ))}
                     </ul>
@@ -146,15 +148,15 @@ function CreateVideogame(){
                         <option value="" selected disabled hidden>Selecionar plataforma</option>
                         {platforms.map((platform) => (<option value={platform} >{platform}</option>))}
                     </select>
-                    {errors.platforms ? <label>{errors.platforms}</label> : null }
+                    {errors.platforms ? <label className="LabelError">{errors.platforms}</label> : null }
                 </div>
                 
                 <div className="InputContainer">
                     <ul>
                         {state.platforms?.map(platform => (
-                            <li>
-                                <label>{platform}</label>
-                                <button name="platforms" type="button" value={platform} onClick={handleClickSelect}>x</button>
+                            <li className="List">
+                                <label className="LabelList">{platform}</label>
+                                <button className="Button" name="platforms" type="button" value={platform} onClick={handleClickSelect}>x</button>
                             </li>
                         ))}
                     </ul>
@@ -163,10 +165,13 @@ function CreateVideogame(){
                 <div className="InputContainer">
                     <label>Imagen (URL):</label>
                     <input className="InputForm" type="text" name="background_image" onChange={handleInput} value={state.background_image}/>
-                    {errors.background_image ? <label>{errors.background_image}</label> : null}
+                    {errors.background_image ? <label className="LabelError">{errors.background_image}</label> : null}
                 </div>
 
-                <button type="submit">submit</button>
+                <div className="SubmitContainer">
+                    <button className="Button" disabled={Object.keys(errors).length !== 0} type="submit">Submit</button>
+                </div>
+                {creado ?  <Redirect to="/home"/> : null }
             </form>
         </div>
         </div>

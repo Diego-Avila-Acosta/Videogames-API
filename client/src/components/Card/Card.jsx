@@ -11,15 +11,15 @@ function Card(props){
             </div>
 
             <div className="Info">
-            <Link to={`/videogame/${props.id}`} className="Name"><h2>{props.name}</h2></Link>
-            {/*<span>Generos: {props.genres?.map(genre => genre.name).join(",")}</span>*/}
-            <ul>
-                {
-                    props.genres?.map(genre => (
-                        <li>{genre.name}</li>
-                        ))
-                    }
-            </ul>
+                <Link to={`/videogame/${props.id}`} className="Name"><h2>{props.name}</h2></Link>
+                <h3 className="Genres">Generos:</h3>
+                <ul>
+                    {
+                        props.genres?.map(genre => (
+                            <li className="ListGenres">{genre.name}</li>
+                            ))
+                        }
+                </ul>
             </div>
     </div>
     )

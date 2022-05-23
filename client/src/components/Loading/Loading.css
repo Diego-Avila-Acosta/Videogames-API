@@ -1,0 +1,11 @@
+.LoadingContainer{
+    display: flex;
+    justify-content: center;
+    height: 200px;
+}
+
+.Loading{
+    margin: 50px;
+    height: 100px;
+    width: 100px;
+}

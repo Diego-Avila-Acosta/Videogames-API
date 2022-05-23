@@ -1,15 +1,36 @@
+.MainDetail{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DetailContainer{
+    width: 90%;
+    background-color: #363634;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+
 .Background_Image{
     width: 100%;
     height: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 2px solid black;
 }
 
 .TitleContainer{
     display: flex;
     justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .InfoContainer{
     display: flex;
+    margin: 10px;
 }
 
 .ImgDescContainer{
@@ -21,4 +42,15 @@
     width: 50%;
     grid-template-columns: 50% 50%;
     grid-template-rows: 150px 150px;
+}
+
+.DivText{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DescriptionContainer{
+    margin-top: 5px;
+    margin-bottom: 10px;
 }

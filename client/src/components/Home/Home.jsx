@@ -17,7 +17,7 @@ function Home(){
 
     useEffect(()=>{
         dispatch(getAllVideogames())
-        dispatch(getAllGenres())
+        if(!genres.length) dispatch(getAllGenres())
 
         return () => {
             dispatch(cleanError())
@@ -48,10 +48,13 @@ function Home(){
 
     return(
     <div className="Home">
-        <div>
+        <div className="FilterContainer">
             <div>
+                <h1 className="FilterText">Filtros</h1>
+            </div>
+            <div className="Filter">
                 <label>Generos:</label>
-                <select name="genres" onChange={handleFilter}>
+                <select className="SelectHome" name="genres" onChange={handleFilter}>
                     <option value="all">All</option>{
                             genres?.map((genre) =>(
                                 <option value={genre.id}>{genre.name}</option>
@@ -60,9 +63,9 @@ function Home(){
                 </select>
             </div>
 
-            <div>
+            <div className="Filter">
                 <label>DB or API:</label>
-                <select onChange={handleFilter}>
+                <select className="SelectHome" onChange={handleFilter}>
                     <option value= "all">All</option>
                     <option value= "uuid">Base de Datos</option>
                     <option value= "id">API</option>
@@ -70,9 +73,9 @@ function Home(){
             </div>
 
         
-            <div>
+            <div className="Filter">
                 <label>Rating:</label>
-                <select name= "rating" onChange={handleSort}>
+                <select className="SelectHome" name= "rating" onChange={handleSort}>
                     <option value= "none">Ninguno</option>
                     <option value= "ascendent">Menor</option>
                     <option value= "descendent">Mayor</option>
@@ -80,9 +83,9 @@ function Home(){
             </div>
 
         
-            <div>
+            <div className="Filter">
                 <label>A-Z:</label>
-                <select name="name" onChange={handleSort}>
+                <select className="SelectHome" name="name" onChange={handleSort}>
                     <option value= "none">Ninguno</option>
                     <option value= "ascendent">Ascendente</option>
                     <option value= "descendent">Descendente</option>
@@ -92,8 +95,8 @@ function Home(){
 
         <div className="MainContainer">
             <div className="Search">
-                <input type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
-                <button onClick={handleSearch}>Search</button>
+                <input className="InputSearch" type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
+                <button className="ButtonSearch" onClick={handleSearch}>Search</button>
             </div>
             
             {loading && <Loading/>}

@@ -1,0 +1,20 @@
+.Error{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 200px;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.ContenedorError{
+    display: flex;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+}
+
+.MessageError{
+    color: white;
+}

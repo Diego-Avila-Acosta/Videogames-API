@@ -2,6 +2,22 @@
     display: flex;
 }
 
+.FilterContainer{
+    padding: 20px;
+    background-color: black;
+    min-height: 100vh;
+    max-height: 100%;
+}
+
+.FilterText{
+    color: white;
+    margin-bottom: 15px;
+}
+
+.Filter{
+    margin-bottom: 15px;
+}
+
 .MainContainer{
     width: 100%;
 }
@@ -10,5 +26,30 @@
     display: flex;
     justify-content: center;
     margin: 10px;
+    width: 100%;
 }
 
+.InputSearch{
+    height: 20px;
+    width: 50%;
+    margin-right: 15px;
+}
+
+.ButtonSearch{
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+    color: black;
+    background-color: #676762;
+    border-style: solid;
+    border-color: whitesmoke;
+    border-radius: 4px;
+
+}
+
+.ButtonSearch:hover{
+    background-color: whitesmoke;
+}
+
+.SelectHome{
+    width: 100%;
+}

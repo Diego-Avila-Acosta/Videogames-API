@@ -1,6 +1,21 @@
+.Joystick{
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+}
+
+.Link{
+    margin: 10px;
+    color: white;
+}
+
+.Link:hover{
+    color: cornflowerblue;
+}
+
 .NavBar{
     display: flex;
-    justify-content: space-between;
     background-color: black;
-    height: 30px;
+    height: 55px;
+    align-items: center;
 }

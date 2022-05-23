@@ -1,10 +1,13 @@
+import loading from "../../Assets/Loading.gif"
+import "./Loading.css"
+
 
 function Loading(){
 
     return(
-        <>
-        <h1>Loading!</h1>
-        </>
+        <div className="LoadingContainer">
+            <img className="Loading" src={loading} alt="Loading" />
+        </div>
     )
 }
 

@@ -1,5 +1,6 @@
 .Card{
-    background-color: aquamarine;
+    margin-bottom: 10px;
+    background-color: #363634;
     border-radius: 10px;
     height: 350px;
 }
@@ -22,11 +23,24 @@
 }
 
 .Name{
+    margin: 5px;
     text-align: center;
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .Name:hover{
-    color:aqua
+    color: dodgerblue
+}
+
+.Genres{
+    color: white;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.ListGenres{
+    color: white;
+    margin-left: 20px;
+    padding: 1px;
 }

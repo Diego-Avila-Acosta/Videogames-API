@@ -29,33 +29,39 @@ function DetailVideogame(props){
             <>
             {loading && <Loading/>}
             {detailVideogame &&
-                <div>
-                    <div className="TitleContainer">
-                        <h1>{detailVideogame.name}</h1>
-                    </div>
-                    <div className="InfoContainer">
-                        <div className="TextContainer">
-                            <div>
-                                <p>{detailVideogame.rating}</p>
-                            </div>
-                            <div>
-                                <p>{detailVideogame.released}</p>
-                            </div>
-                            <div>
-                                <ul>
-                                    {detailVideogame.genres?.map(genre => (<li>{genre.name}</li>))}
-                                </ul>
-                            </div>
-                            <div>
-                                <p>{typeof detailVideogame.platforms !== "string" ? detailVideogame.platforms?.map(platform => platform["platform"].name).join("/") : detailVideogame.platforms}</p>
-                            </div>
+                <div className="MainDetail">
+                    <div className="DetailContainer">
+                        <div className="TitleContainer">
+                            <h1>{detailVideogame.name}</h1>
                         </div>
-                        <div className="ImgDescContainer">
-                            <div>
-                                <img className="Background_Image" src={detailVideogame.background_image} alt={detailVideogame.name} />
+                        <div className="InfoContainer">
+                            <div className="TextContainer">
+                                <div className="DivText">
+                                    <h2>Rating</h2>
+                                    <p>{detailVideogame.rating}</p>
+                                </div>
+                                <div className="DivText">
+                                    <h2>Fecha de lanzamiento</h2>
+                                    <p>{detailVideogame.released}</p>
+                                </div>
+                                <div className="DivText">
+                                    <h2>Generos</h2>
+                                    <ul>
+                                        {detailVideogame.genres?.map(genre => (<li>{genre.name}</li>))}
+                                    </ul>
+                                </div>
+                                <div className="DivText">
+                                    <h2>Plataformas</h2>
+                                    <p>{typeof detailVideogame.platforms !== "string" ? detailVideogame.platforms?.map(platform => platform["platform"].name).join("/") : detailVideogame.platforms}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p>{detailVideogame.description}</p>
+                            <div className="ImgDescContainer">
+                                <div>
+                                    <img className="Background_Image" src={detailVideogame.background_image} alt={detailVideogame.name} />
+                                </div>
+                                <div className="DescriptionContainer">
+                                    <p>{detailVideogame.description}</p>
+                                </div>
                             </div>
                         </div>
                     </div>

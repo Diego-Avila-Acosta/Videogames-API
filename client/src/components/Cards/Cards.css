@@ -10,7 +10,7 @@
     display: grid;
     margin: 0 auto;
     grid-template-columns: 320px 320px 320px;
-    gap: 20px;
+    gap: 25px;
 }
 
 .Paginado {
@@ -20,6 +20,24 @@
     margin: 10px;
 }
 
+
 .ButtonPaginado{
-margin: 10px;
+    margin: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    color: black;
+    background-color: #676762;
+    border-style: solid;
+    border-color: whitesmoke;
+    border-radius: 4px;
+}
+
+.ButtonPaginado:hover{
+    background-color: whitesmoke;
+}
+
+.ButtonPaginado:disabled{
+    background-color: whitesmoke;
 }
