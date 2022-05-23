@@ -6,10 +6,8 @@ function isUUID(id){
 export default function Filter(){
 
     this.idFilter = function(videogames, payload){
-        let bool = payload === "uuid" ? true : false
-        return videogames.filter(game => {
-            return isUUID(game.id) === bool
-        })
+        let bool = payload === "uuid"
+        return videogames.filter(game => isUUID(game.id) === bool )
     }
 
     this.genreFilter = function(videogames, payload){

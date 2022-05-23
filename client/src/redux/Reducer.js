@@ -25,7 +25,7 @@ const rootReducer = function(state = initialState, action){
 
         case SEARCH_VIDEOGAME:
             if(!action.payload){
-                return {...state, videogames: [...aux]}
+                return {...state, videogames: [...aux], error: null}
             }
             else aux = state.videogames
             return {...state, videogames: action.payload}
@@ -66,7 +66,8 @@ const rootReducer = function(state = initialState, action){
         case POST_VIDEOGAME:
             return {...state, videogames: [...state.videogames, action.payload]}
         case SET_ERROR:
-            return {...state, error: action.payload}
+            aux = state.videogames 
+            return {...state, videogames:[] ,error: action.payload}
         case CLEAN_ERROR:
             return {...state, error: null}
         default:

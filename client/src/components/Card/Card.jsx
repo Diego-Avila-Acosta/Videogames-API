@@ -16,7 +16,7 @@ function Card(props){
                 <ul>
                     {
                         props.genres?.map(genre => (
-                            <li className="ListGenres">{genre.name}</li>
+                            <li key={genre.name} className="ListGenres">{genre.name}</li>
                             ))
                         }
                 </ul>

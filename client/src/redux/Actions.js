@@ -50,9 +50,17 @@ export const searchVideogame = (name) =>{
         return fetch(`http://localhost:3001/videogames?name=${name}`)
         .then(response => response.json())
         .then(data => {
+            if(data.error)throw new Error(data.error)
             dispatch({
                 type:SEARCH_VIDEOGAME,
                 payload:data
+            })
+        })
+        .catch(error =>{
+            console.log(error)
+            dispatch({
+                type:SET_ERROR,
+                payload: error.message
             })
         })
     }
@@ -104,11 +112,9 @@ export const postVideogame = (game) =>{
                 payload: data
             })
         }).catch(error => {
-            console.log(error)
         })
     }
 }
-
 
 export const cleanError = () =>{
     return {

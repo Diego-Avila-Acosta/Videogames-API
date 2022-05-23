@@ -66,7 +66,7 @@ function CreateVideogame(){
     function handleClickSelect(e){
         let name = e.target.name
         setState(state => {
-            return {...state, [name]: state[name].filter(element => element != e.target.value)}
+            return {...state, [name]: state[name].filter(element => element !== e.target.value)}
         })
     }
 

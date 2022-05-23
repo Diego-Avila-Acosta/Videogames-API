@@ -55,9 +55,9 @@ function Home(){
             <div className="Filter">
                 <label>Generos:</label>
                 <select className="SelectHome" name="genres" onChange={handleFilter}>
-                    <option value="all">All</option>{
+                    <option key="all" value="all">All</option>{
                             genres?.map((genre) =>(
-                                <option value={genre.id}>{genre.name}</option>
+                                <option key={genre.id} value={genre.id}>{genre.name}</option>
                             ))
                     }
                 </select>
@@ -66,9 +66,9 @@ function Home(){
             <div className="Filter">
                 <label>DB or API:</label>
                 <select className="SelectHome" onChange={handleFilter}>
-                    <option value= "all">All</option>
-                    <option value= "uuid">Base de Datos</option>
-                    <option value= "id">API</option>
+                    <option key="all" value= "all">All</option>
+                    <option key="uuid" value= "uuid">Base de Datos</option>
+                    <option key="id" value= "id">API</option>
                 </select>
             </div>
 
@@ -76,9 +76,9 @@ function Home(){
             <div className="Filter">
                 <label>Rating:</label>
                 <select className="SelectHome" name= "rating" onChange={handleSort}>
-                    <option value= "none">Ninguno</option>
-                    <option value= "ascendent">Menor</option>
-                    <option value= "descendent">Mayor</option>
+                    <option key="none" value= "none">Ninguno</option>
+                    <option key="ascendent" value= "ascendent">Menor</option>
+                    <option key="descendent" value= "descendent">Mayor</option>
                 </select>
             </div>
 
@@ -86,9 +86,9 @@ function Home(){
             <div className="Filter">
                 <label>A-Z:</label>
                 <select className="SelectHome" name="name" onChange={handleSort}>
-                    <option value= "none">Ninguno</option>
-                    <option value= "ascendent">Ascendente</option>
-                    <option value= "descendent">Descendente</option>
+                    <option key="none" value= "none">Ninguno</option>
+                    <option key="ascendent" value= "ascendent">Ascendente</option>
+                    <option key="descendent" value= "descendent">Descendente</option>
                 </select>
             </div>
         </div>
