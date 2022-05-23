@@ -9,7 +9,7 @@ function isUUID(uuid){
 }
 
 
-router.get("/:id", async (req,res) => {
+router.get("/:id", (req,res) => {
     let id = req.params.id
     let url = `https://api.rawg.io/api/games/${id}?key=${API_KEY}`
 

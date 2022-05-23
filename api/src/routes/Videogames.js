@@ -9,7 +9,7 @@ router.get("/", async function(req,res) {
     let busqueda = []
     let url = `https://api.rawg.io/api/games?key=${API_KEY}`
     let name = req.query.name
-    let options = {
+    const options = {
         include: {
             model: Genre,
             attributes: ["id","name"],
@@ -20,7 +20,6 @@ router.get("/", async function(req,res) {
         attributes: ["id", "name", "background_image", "rating"]
     }
 
-    //Refactorizar Completo MAYBE
     if(name){
 
         options.where = { name: {
@@ -32,22 +31,29 @@ router.get("/", async function(req,res) {
 
         Promise.all([axios.get(url), Videogame.findAll(options)])
         .then(response => {
+
             let {data} = response[0]
-            for (let i = 0; i < 15; i++) {
-                busqueda.push({
-                    id: data.results[i].id,
-                    name: data.results[i].name,
-                    background_image: data.results[i].background_image,
-                    genres: logic.mapGenre(data.results[i].genres),
-                    rating: data.results[i].rating
-                })
+            let length = 15 - response[1].length
+
+            if(!data.results.length && !response[1].length) res.status(404).send({error: "404: Game Not Found"})
+
+            else{
+                for (let i = 0; i < length; i++) {
+                    busqueda.push({
+                        id: data.results[i].id,
+                        name: data.results[i].name,
+                        background_image: data.results[i].background_image,
+                        genres: logic.mapGenre(data.results[i].genres),
+                        rating: data.results[i].rating
+                    })
+                }
+                busqueda = busqueda.concat(response[1])
+                res.status(200).send(busqueda)
             }
-            busqueda = busqueda.concat(response[1])
-            res.status(200).send(busqueda)
         })
 
     }else{
-        let iter = 0
+
         do{
             let {data} = await axios.get(url)
 
@@ -60,10 +66,9 @@ router.get("/", async function(req,res) {
                     rating: game.rating
                 }
             }))
-        
-        iter++
+
         url = data.next
-    }while(iter < 5)
+    }while(busqueda.length !== 100)
 
     Videogame.findAll(options)
     .then(data => {
