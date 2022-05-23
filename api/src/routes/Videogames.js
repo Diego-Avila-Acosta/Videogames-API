@@ -16,7 +16,8 @@ router.get("/", async function(req,res) {
             through:{
                 attributes: []
             }
-        }
+        },
+        attributes: ["id", "name", "background_image", "rating"]
     }
 
     //Refactorizar Completo MAYBE
@@ -46,28 +47,6 @@ router.get("/", async function(req,res) {
         })
 
     }else{
-        /* let promises = []
-        for(let i = 0; i < 5; i++) {
-            promises[i] = url + `&page${i+1}`
-        }
-
-        Promise.all(promises.map(url => axios.get(url)))
-        .then(response =>{
-            response.forEach((res, i) => {
-                let {data} = res
-                busqueda.push(...data.results.map( game => {
-                    return {
-                        id: game.id,
-                        name: game.name,
-                        background_image: game.background_image,
-                        genres: logic.mapGenre(game.genres),
-                        rating: game.rating
-                    }
-                }))
-            })
-            res.status(200).send(busqueda)
-        }) */
-
         let iter = 0
         do{
             let {data} = await axios.get(url)
