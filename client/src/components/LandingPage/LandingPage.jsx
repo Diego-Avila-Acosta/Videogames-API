@@ -7,7 +7,8 @@ function LandingPage(){
 
     return (
         <div className="LandingPage">
-        <Link to="/home"> Home</Link>
+            <h1 className="Title">Videogames API</h1>
+            <Link to="/home"><button className="EnterNow">Enter now</button></Link>
         </div>
     )
 }

@@ -5,7 +5,7 @@
 
 
 .App{
-  background-image: url("./Assets/Prueba.jpg");
+  background-image: url("./Assets/Fondo.png");
   background-size: contain;
   min-height: 100vh;
   height: 100%;

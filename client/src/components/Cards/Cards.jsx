@@ -54,7 +54,6 @@ function Cards({videogames}){
                     background_image= {game.background_image}
                     genres = {game.genres} />
                     ))
-                    
                 }
             </div>
         </div>
