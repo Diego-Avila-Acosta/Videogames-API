@@ -5,7 +5,7 @@ import {getAllGenres, postVideogame} from "../../redux/Actions"
 import "./CreateVideogame.css"
 
 function validURL(str) {
-    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
       '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
@@ -13,6 +13,13 @@ function validURL(str) {
       '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
     return pattern.test(str);
   }
+
+function hasSpecialCharacters(str){
+    let pattern = new RegExp(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g)
+    return pattern.test(str)
+}
+
+
 
 function CreateVideogame(){
     const [state,setState] = useState({
@@ -54,6 +61,7 @@ function CreateVideogame(){
     function handleErrors(state){
         let errors = {}
         if(!state.name) errors.name = "Se requiere un nombre"
+        if(!hasSpecialCharacters(state.name)) errors.name = "El nombre no tiene que tener caracteres especiales"
         if(!state.description) errors.description = "Se requiere una descripción"
         if(!state.genres.length) errors.genres = "Se requiere algun genero"
         if(!state.platforms.length) errors.platforms = "Se requiere alguna plataforma"
