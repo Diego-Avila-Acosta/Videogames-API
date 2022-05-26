@@ -3,7 +3,10 @@ const router = require('express').Router();
 const axios = require("axios");
 const {API_KEY} = process.env
 const logic = require("../logic/Genre.js")
-const {Videogame, Genre, Op} = require("../db")
+const {Videogame, Genre, Op} = require("../db");
+
+
+
 
 router.get("/", async function(req,res) {
     let busqueda = []
@@ -54,9 +57,10 @@ router.get("/", async function(req,res) {
 
     }else{
 
-        do{
-            let {data} = await axios.get(url)
+        let iter = 0
 
+        let funcion = function (response){
+            let {data} = response
             busqueda.push(...data.results.map(game => {
                 return {
                     id: game.id,
@@ -67,18 +71,27 @@ router.get("/", async function(req,res) {
                 }
             }))
 
-        url = data.next
-    }while(busqueda.length !== 100)
+            iter++ 
+            if(iter !== 5){
+                axios.get(data.next)
+                .then(funcion)
+            }else{
+                Videogame.findAll(options)
+                .then(data => {
+                    
+                    busqueda = busqueda.concat(data)
+                    console.log(busqueda.length)
+                    res.status(200).send(busqueda)
+                })
+                .catch(error => {
+                    res.status(400).send(error)
+                })
+            }
+        }
 
-    Videogame.findAll(options)
-    .then(data => {
-        
-        busqueda = busqueda.concat(data)
-        res.status(200).send(busqueda)
-    })
-    .catch(error => {
-        res.status(400).send(error)
-    })
+    axios.get(url)
+    .then(funcion)
+
     }
 })
 
