@@ -12,6 +12,7 @@ const initialState = {
 
 let aux = [];
 let auxSort = [];
+let videogames = [];
 
 
 const rootReducer = function(state = initialState, action){
@@ -27,7 +28,7 @@ const rootReducer = function(state = initialState, action){
             if(!action.payload){
                 return {...state, videogames: [...aux], error: null}
             }
-            else aux = state.videogames
+           if(!aux.length) aux = state.videogames
             return {...state, videogames: action.payload}
 
         case GET_ALL_GENRES: 
@@ -35,27 +36,32 @@ const rootReducer = function(state = initialState, action){
         
         case SORT_VIDEOGAMES:
             let sort = new Sort()
-            if(action.payload.value === "none"){
-                return {...state, videogames: [...auxSort]}
-            }
             if(!auxSort.length)auxSort = [...state.videogames]
+            if(action.payload.value === "none"){
+                if(auxSort.length){
+                    videogames = [...auxSort]
+                    auxSort = []
+                }
+                else videogames = state.videogames
+            }else{
+                videogames = [...sort.sort(state.videogames, sort[action.payload.value], action.payload.name)]
+            }
 
-
-            return {...state, videogames: [...sort.sort(state.videogames, sort[action.payload.value], action.payload.name)]}
+            return {...state, videogames}
 
         case FILTER_VIDEOGAMES:
             let filter = new Filter()
-            let videogames
             let error = null
+            auxSort = []
 
             if(aux.length) state.videogames  = aux
             else aux = state.videogames
 
-            if(isNaN(Number(action.payload))){
+            if(action.payload === "id" || action.payload === "uuid"){
                 videogames = filter.idFilter(state.videogames, action.payload)
             }else if(action.payload === "all"){
-                videogames =  aux
-                aux = null
+                videogames =  [...aux]
+                aux = []
             }else{
                 videogames = filter.genreFilter(state.videogames, Number(action.payload))
             }
@@ -63,13 +69,18 @@ const rootReducer = function(state = initialState, action){
             if(!videogames.length) error = "404: Games Not Found"
 
             return {...state, videogames, error}
+
         case POST_VIDEOGAME:
             return {...state, videogames: [...state.videogames, action.payload]}
+
         case SET_ERROR:
+
             aux = state.videogames 
             return {...state, videogames:[] ,error: action.payload}
+
         case CLEAN_ERROR:
             return {...state, error: null}
+
         default:
             return state
     }

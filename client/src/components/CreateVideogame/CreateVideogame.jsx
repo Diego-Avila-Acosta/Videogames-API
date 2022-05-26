@@ -25,7 +25,7 @@ function CreateVideogame(){
         platforms:[]
     })
     const [creado, setCreado] = useState(false)
-    const [errors,setErrors] = useState({})
+    const [errors,setErrors] = useState({incio: "Inicio"})
     const genres = useSelector(state => state.genres)
     const dispatch = useDispatch()
     const platforms = ["Xbox 360", "PlayStation 5", "PlayStation 3", "PlayStation 4", "Xbox One", "PC", "Nintendo Switch"]

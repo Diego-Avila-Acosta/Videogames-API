@@ -54,7 +54,7 @@ function Home(){
             </div>
             <div className="Filter">
                 <label>Generos:</label>
-                <select className="SelectHome" name="genres" onChange={handleFilter}>
+                <select disabled={loading ? true : false } className="SelectHome" name="genres" onChange={handleFilter}>
                     <option key="all" value="all">All</option>{
                             genres?.map((genre) =>(
                                 <option key={genre.id} value={genre.id}>{genre.name}</option>
@@ -65,7 +65,7 @@ function Home(){
 
             <div className="Filter">
                 <label>DB or API:</label>
-                <select className="SelectHome" onChange={handleFilter}>
+                <select disabled={loading ? true : false }  className="SelectHome" onChange={handleFilter}>
                     <option key="all" value= "all">All</option>
                     <option key="uuid" value= "uuid">Base de Datos</option>
                     <option key="id" value= "id">API</option>
@@ -75,7 +75,7 @@ function Home(){
         
             <div className="Filter">
                 <label>Rating:</label>
-                <select className="SelectHome" name= "rating" onChange={handleSort}>
+                <select disabled={loading ? true : false }  className="SelectHome" name= "rating" onChange={handleSort}>
                     <option key="none" value= "none">Ninguno</option>
                     <option key="ascendent" value= "ascendent">Menor</option>
                     <option key="descendent" value= "descendent">Mayor</option>
@@ -85,7 +85,7 @@ function Home(){
         
             <div className="Filter">
                 <label>A-Z:</label>
-                <select className="SelectHome" name="name" onChange={handleSort}>
+                <select disabled={loading ? true : false }  className="SelectHome" name="name" onChange={handleSort}>
                     <option key="none" value= "none">Ninguno</option>
                     <option key="ascendent" value= "ascendent">Ascendente</option>
                     <option key="descendent" value= "descendent">Descendente</option>
@@ -98,7 +98,6 @@ function Home(){
                 <input className="InputSearch" type="text" name="search" value={search} onChange={(e) => {setSearch(state => e.target.value)}}/>
                 <button className="ButtonSearch" onClick={handleSearch}>Search</button>
             </div>
-            
             {loading && <Loading/>}
             {videogames && <Cards videogames={videogames}/>}
             {error && <Error msg={error}/>}
