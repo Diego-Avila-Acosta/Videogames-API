@@ -8,10 +8,14 @@ export const POST_VIDEOGAME = "POST_VIDEOGAME"
 export const SET_ERROR = "SET_ERROR"
 export const CLEAN_ERROR = "CLEAN_ERROR"
 
+import dotenv from "dotenv"
+
+dotenv.config()
+
 
 export const getAllVideogames = () =>{
     return async function(dispatch){
-        return fetch("http://localhost:3001/videogames")
+        return fetch(`${process.env.REACT_APP_API}/videogames`)
         .then(response => response.json())
         .then(data => {
             dispatch({
@@ -24,7 +28,7 @@ export const getAllVideogames = () =>{
 
 export const getVideogame = (id) =>{
     return async function(dispatch){
-        return fetch(`http://localhost:3001/videogame/${id}`)
+        return fetch(`${process.env.REACT_APP_API}/videogame/${id}`)
         .then(response => response.json())
         .then(data => {
             if(data.error)throw new Error(data.error)
@@ -47,7 +51,7 @@ export const searchVideogame = (name) =>{
         payload: name
     }
     return async function(dispatch){
-        return fetch(`http://localhost:3001/videogames?name=${name}`)
+        return fetch(`${process.env.REACT_APP_API}/videogames?name=${name}`)
         .then(response => response.json())
         .then(data => {
             if(data.error)throw new Error(data.error)
@@ -68,7 +72,7 @@ export const searchVideogame = (name) =>{
 
 export const getAllGenres = () =>{
     return async function(dispatch){
-        return fetch("http://localhost:3001/genres")
+        return fetch(`${process.env.REACT_APP_API}/genres`)
         .then(response => response.json())
         .then(data => {
             dispatch({
@@ -96,7 +100,7 @@ export const filterVideogames= (value) => {
 
 export const postVideogame = (game) =>{
     return async function(dispatch){
-        return fetch("http://localhost:3001/videogame", {
+        return fetch(`${process.env.REACT_APP_API}/videogame`, {
             method: "post",
             headers: {
               'Accept': 'application/json',
