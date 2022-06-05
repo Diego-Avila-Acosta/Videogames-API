@@ -1,3 +1,6 @@
+import dotenv from "dotenv"
+dotenv.config()
+
 export const GET_ALL_VIDEOGAMES = "GET_ALL_VIDEOGAMES"
 export const GET_VIDEOGAME = "GET_VIDEOGAME"
 export const SEARCH_VIDEOGAME = "SEARCH_VIDEOGAME"
@@ -7,10 +10,6 @@ export const FILTER_VIDEOGAMES = "FILTER_VIDEOGAMES"
 export const POST_VIDEOGAME = "POST_VIDEOGAME"
 export const SET_ERROR = "SET_ERROR"
 export const CLEAN_ERROR = "CLEAN_ERROR"
-
-import dotenv from "dotenv"
-
-dotenv.config()
 
 
 export const getAllVideogames = () =>{
