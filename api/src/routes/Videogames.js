@@ -32,15 +32,15 @@ router.get("/", async function(req,res) {
 
         url += `&search=${name}`.split(" ").join("%20")
 
-        Promise.all([axios.get(url), Videogame.findAll(options)])
-        .then(response => {
+        axios.get(url)
+        .then( async (response) => {
+            let resultadoBD = await Videogame.findAll(options)
+            let {data} = response
+            
 
-            let {data} = response[0]
-            let length = 15 - response[1].length
-
-            if(!data.results.length && !response[1].length) res.status(404).send({error: "404: Game Not Found"})
-
+            if(!data.results.length && !resultadoBD.length) res.status(404).send({error: "404: Game Not Found"})
             else{
+                let length = 15 -  resultadoDB.length
                 for (let i = 0; i < length; i++) {
                     busqueda.push({
                         id: data.results[i].id,
@@ -50,7 +50,7 @@ router.get("/", async function(req,res) {
                         rating: data.results[i].rating
                     })
                 }
-                busqueda = busqueda.concat(response[1])
+                busqueda = busqueda.concat(resultadoBD)
                 res.status(200).send(busqueda)
             }
         })
@@ -59,7 +59,7 @@ router.get("/", async function(req,res) {
 
         let iter = 0
 
-        let funcion = function (response){
+        let funcion = async function (response){
             let {data} = response
             busqueda.push(...data.results.map(game => {
                 return {
@@ -76,15 +76,12 @@ router.get("/", async function(req,res) {
                 axios.get(data.next)
                 .then(funcion)
             }else{
-                Videogame.findAll(options)
-                .then(data => {
-                    busqueda = busqueda.concat(data)
-                    res.status(200).send(busqueda)
-                })
-                .catch(error => {
-                    res.status(400).send(error)
-                })
+                let resultadoBD =  await Videogame.findAll(options)
+
+                busqueda.concat(resultadoBD)
+                res.status(200).json(busqueda)
             }
+
         }
 
     axios.get(url)
