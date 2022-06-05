@@ -34,11 +34,11 @@ router.get("/", async function(req,res) {
 
         axios.get(url)
         .then( async (response) => {
-            let resultadoBD = await Videogame.findAll(options)
+            let resultadoDB = await Videogame.findAll(options)
             let {data} = response
             
 
-            if(!data.results.length && !resultadoBD.length) res.status(404).send({error: "404: Game Not Found"})
+            if(!data.results.length && !resultadoDB.length) res.status(404).send({error: "404: Game Not Found"})
             else{
                 let length = 15 -  resultadoDB.length
                 for (let i = 0; i < length; i++) {
@@ -50,7 +50,7 @@ router.get("/", async function(req,res) {
                         rating: data.results[i].rating
                     })
                 }
-                busqueda = busqueda.concat(resultadoBD)
+                busqueda = busqueda.concat(resultadoDB)
                 res.status(200).send(busqueda)
             }
         })
@@ -76,9 +76,9 @@ router.get("/", async function(req,res) {
                 axios.get(data.next)
                 .then(funcion)
             }else{
-                let resultadoBD =  await Videogame.findAll(options)
+                let resultadoDB =  await Videogame.findAll(options)
 
-                busqueda.concat(resultadoBD)
+                busqueda.concat(resultadoDB)
                 res.status(200).json(busqueda)
             }
 
