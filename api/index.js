@@ -37,9 +37,13 @@ conn.sync({ force: false }).then(() => {
     .then(data => {
       let array = logic.mapGenre(data.results)
       array.map(genre =>{
-        Genre.create({
-          id: genre.id,
-          name: genre.name
+        Genre.findOrCreate({
+          where:{
+            id: genre.id
+          },
+          default:{
+            name:genre.name
+          }
         })
       })
     })
